@@ -29,7 +29,7 @@ class Category(AbstractBaseModel):
 
 class Favorite(AbstractBaseModel):
 
-    title = models.TextField(unique=True)
+    title = models.TextField()
 
     description = models.TextField(MinLengthValidator(
         10, message="Description should be at least 10 characters"), null=True)
@@ -44,7 +44,8 @@ class Favorite(AbstractBaseModel):
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='favorites')
 
-    is_deleted = models.BooleanField(null=True, default=False)
+    class Meta:
+        unique_together = [['title', 'owner']]
 
 
 class Auditlog(AbstractBaseModel):
