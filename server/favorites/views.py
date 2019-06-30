@@ -1,13 +1,26 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets
+from django.contrib.auth import authenticate
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .serializers import UserSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
+class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
+    authentication_classes = ()
+    permission_classes = ()
 
-    lookup_field = 'username'
+
+class LoginView(APIView):
+    permission_classes = ()
+
+    def post(self, request,):
+        username = request.data.get("username")
+        password = request.data.get("password")
+        user = authenticate(username=username, password=password)
+        if user:
+            return Response({"token": user.auth_token.key, "message": "Login successful"})
+        else:
+            return Response({"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST)
