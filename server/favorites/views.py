@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 
 
-from .serializers import (UserSerializer, FavoriteSerializer,
+from .serializers import (UserSerializer, FavoriteSerializer, LoginSerializer,
                           AuditlogSerializer, CategorySerializer, FavoriteDetailsSerializer)
 from .models import Favorite, Category, Auditlog
 from .helpers import (handle_decrement_rank, handle_increment_rank,
@@ -22,11 +22,12 @@ class UserCreateView(generics.CreateAPIView):
     permission_classes = ()
 
 
-class LoginView(APIView):
+class LoginView(generics.CreateAPIView):
 
     """It has handles user authentication and returns token to authenticated user.
     """
     permission_classes = ()
+    serializer_class = LoginSerializer
 
     def post(self, request,):
         username = request.data.get("username")
@@ -134,6 +135,9 @@ class CategoryFavoriteView(generics.ListAPIView):
 
 
 class AuditLogView(generics.ListAPIView):
+
+    """It handles get audit logs
+    """
 
     serializer_class = AuditlogSerializer
 
