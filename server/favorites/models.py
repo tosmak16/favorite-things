@@ -26,6 +26,9 @@ class Category(AbstractBaseModel):
 
     name = models.TextField(unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Favorite(AbstractBaseModel):
 
@@ -46,6 +49,12 @@ class Favorite(AbstractBaseModel):
 
     class Meta:
         unique_together = [['title', 'owner']]
+
+        ordering = ['ranking', 'category']
+
+    def __str__(self):
+
+        return f"{self.owner}'s, {self.title}"
 
 
 class Auditlog(AbstractBaseModel):
