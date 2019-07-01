@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-from .models import Favorite, Category
+from .models import Favorite, Category, Auditlog
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -45,3 +45,10 @@ class FavoriteDetailsSerializer(serializers.ModelSerializer):
         fields = '__all__'
         extra_kwargs = {'owner': {'read_only': True},
                         'is_deleted': {'read_only': True}}
+
+
+class AuditlogSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Auditlog
+        fields = '__all__'

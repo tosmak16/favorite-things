@@ -7,8 +7,8 @@ from datetime import datetime
 
 
 from .serializers import (UserSerializer, FavoriteSerializer,
-                          CategorySerializer, FavoriteDetailsSerializer)
-from .models import Favorite, Category
+                          AuditlogSerializer, CategorySerializer, FavoriteDetailsSerializer)
+from .models import Favorite, Category, Auditlog
 from .helpers import (handle_decrement_rank, handle_increment_rank,
                       handle_left_shift_rank, handle_right_shift_rank)
 
@@ -131,3 +131,12 @@ class CategoryFavoriteView(generics.ListAPIView):
             owner_id=self.request.user, is_deleted=False)
         data = FavoriteSerializer(queryset, many=True).data
         return Response(data, status=status.HTTP_200_OK)
+
+
+class AuditLogView(generics.ListAPIView):
+
+    serializer_class = AuditlogSerializer
+
+    def get_queryset(self):
+        queryset = Auditlog.objects.filter(owner_id=self.request.user)
+        return queryset
