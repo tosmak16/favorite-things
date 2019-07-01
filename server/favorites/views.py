@@ -4,10 +4,13 @@ from rest_framework import generics, status, viewsets, mixins
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
+from django.db.models import F
 
 from .serializers import (UserSerializer, FavoriteSerializer,
                           CategorySerializer, FavoriteDetailsSerializer)
 from .models import Favorite, Category
+from .helpers import (handle_decrement_rank, handle_increment_rank,
+                      handle_left_shift_rank, handle_right_shift_rank)
 
 
 class UserCreateView(generics.CreateAPIView):
@@ -43,6 +46,14 @@ class FavoriteViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.Cre
         queryset = Favorite.objects.filter(owner_id=self.request.user)
         return queryset
 
+    def perform_create(self, serializer):
+
+        # update favorite rank of the same category
+        handle_increment_rank(ranking=serializer.validated_data.get(
+            'ranking'), category=serializer.validated_data.get('category'))
+
+        serializer.save()
+
 
 class FavoriteDetailsViewSet(
         mixins.RetrieveModelMixin, viewsets.GenericViewSet,
@@ -53,6 +64,33 @@ class FavoriteDetailsViewSet(
     def get_queryset(self):
         queryset = Favorite.objects.filter(owner_id=self.request.user)
         return queryset
+
+    def perform_update(self, serializer):
+
+        instance = self.get_object()
+
+        new_ranking = serializer.validated_data.get('ranking')
+        new_category = serializer.validated_data.get('category')
+
+        if (instance.ranking != new_ranking or instance.ranking == new_ranking) and instance.category != new_category:
+            handle_increment_rank(ranking=new_ranking, category=new_category)
+            handle_decrement_rank(ranking=instance.ranking,
+                                  category=instance.category)
+
+        elif new_ranking > instance.ranking and instance.category == new_category:
+            handle_left_shift_rank(new_ranking, instance.ranking, new_category)
+
+        elif new_ranking < instance.ranking and instance.category == new_category:
+            handle_right_shift_rank(
+                new_ranking, instance.ranking, new_category)
+        serializer.save()
+
+    def perform_destroy(self, instance):
+
+        # update favorite rank of the same category
+        handle_decrement_rank(ranking=instance.ranking,
+                              category=instance.category)
+        instance.delete()
 
 
 class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.CreateModelMixin):
