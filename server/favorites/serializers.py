@@ -6,6 +6,8 @@ from .models import Favorite, Category
 
 class UserSerializer(serializers.ModelSerializer):
 
+    email = serializers.EmailField(required=True)
+
     class Meta:
         model = User
         fields = ('username', 'email', 'password')

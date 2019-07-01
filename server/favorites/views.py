@@ -33,9 +33,9 @@ class LoginView(APIView):
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
         if user:
-            return Response({"token": user.auth_token.key, "message": "Login successful"})
+            return Response({"token": user.auth_token.key, "message": "Login successful."})
         else:
-            return Response({"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Wrong Credentials."}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class FavoriteViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.CreateModelMixin):

@@ -1,0 +1,15 @@
+[run]
+omit =
+    *migrations*
+    *admin.py
+    *static*
+    *templates*
+    *.pyenv*
+    *urls*
+    *__init__*
+    *settings*
+    *tests*
+    *manage.py*
+    *.venv*
+    *venv*
+    *virtualenvs*

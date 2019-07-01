@@ -12,10 +12,13 @@ django = "*"
 djangorestframework = "*"
 python-dotenv = "*"
 psycopg2-binary = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.7"
 
-
 [scripts]
-server = "python manage.py runserver"
+dev-server = "python manage.py runserver --settings=config.settings.dev"
+tests = "python manage.py test --settings=config.settings.test"
+coverage = "coverage run manage.py test --settings=config.settings.test"
+report = "coverage report"
