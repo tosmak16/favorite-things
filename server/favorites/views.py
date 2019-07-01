@@ -1,10 +1,10 @@
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework import generics, status, viewsets, mixins
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from django.db.models import F
+from datetime import datetime
+
 
 from .serializers import (UserSerializer, FavoriteSerializer,
                           CategorySerializer, FavoriteDetailsSerializer)
@@ -43,14 +43,17 @@ class FavoriteViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.Cre
     serializer_class = FavoriteSerializer
 
     def get_queryset(self):
-        queryset = Favorite.objects.filter(owner_id=self.request.user)
+        queryset = Favorite.objects.filter(
+            owner_id=self.request.user, is_deleted=False)
         return queryset
 
     def perform_create(self, serializer):
 
+        category = serializer.validated_data.get('category')
+        ranking = serializer.validated_data.get('ranking')
+
         # update favorite rank of the same category
-        handle_increment_rank(ranking=serializer.validated_data.get(
-            'ranking'), category=serializer.validated_data.get('category'))
+        handle_increment_rank(ranking=ranking, category=category)
 
         serializer.save()
 
@@ -62,7 +65,8 @@ class FavoriteDetailsViewSet(
     serializer_class = FavoriteDetailsSerializer
 
     def get_queryset(self):
-        queryset = Favorite.objects.filter(owner_id=self.request.user)
+        queryset = Favorite.objects.filter(
+            owner_id=self.request.user, is_deleted=False)
         return queryset
 
     def perform_update(self, serializer):
@@ -83,6 +87,7 @@ class FavoriteDetailsViewSet(
         elif new_ranking < instance.ranking and instance.category == new_category:
             handle_right_shift_rank(
                 new_ranking, instance.ranking, new_category)
+
         serializer.save()
 
     def perform_destroy(self, instance):
@@ -90,7 +95,9 @@ class FavoriteDetailsViewSet(
         # update favorite rank of the same category
         handle_decrement_rank(ranking=instance.ranking,
                               category=instance.category)
-        instance.delete()
+        instance.is_deleted = True
+        instance.title = f'{instance.title}-{datetime.utcnow()}'
+        instance.save()
 
 
 class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.CreateModelMixin):
@@ -120,6 +127,7 @@ class CategoryFavoriteView(generics.ListAPIView):
 
     def get(self, request, category_id):
         category = get_object_or_404(Category, pk=category_id)
-        queryset = category.favorites.filter(owner_id=self.request.user)
+        queryset = category.favorites.filter(
+            owner_id=self.request.user, is_deleted=False)
         data = FavoriteSerializer(queryset, many=True).data
         return Response(data, status=status.HTTP_200_OK)
