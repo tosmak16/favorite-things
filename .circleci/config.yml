@@ -13,7 +13,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:9.4
 
-    working_directory: ~/favorite-things/server
+    working_directory: ~/favorite-things
 
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
@@ -34,6 +34,7 @@ jobs:
             - "/usr/local/lib/python3.6/site-packages"
       - run:
           command: |
+            cd server
             pipenv run tests-coverage
             pipenv run report
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
