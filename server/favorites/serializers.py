@@ -41,4 +41,5 @@ class FavoriteDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
         fields = '__all__'
-        extra_kwargs = {'owner': {'read_only': True}}
+        extra_kwargs = {'owner': {'read_only': True},
+                        'is_deleted': {'read_only': True}}
