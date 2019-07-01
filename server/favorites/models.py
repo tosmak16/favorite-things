@@ -47,8 +47,10 @@ class Favorite(AbstractBaseModel):
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='favorites')
 
+    is_deleted = models.BooleanField(null=True, default=False)
+
     class Meta:
-        unique_together = [['title', 'owner']]
+        unique_together = [['title', 'owner', 'is_deleted']]
 
         ordering = ['ranking', 'category']
 
@@ -59,7 +61,14 @@ class Favorite(AbstractBaseModel):
 
 class Auditlog(AbstractBaseModel):
 
-    favourite = models.ForeignKey(
+    favorite = models.ForeignKey(
         Favorite, on_delete=models.CASCADE, related_name="audit_logs")
-
     action = models.TextField()
+    activity = models.TextField()
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='audit_logs')
+
+    @staticmethod
+    def save_audit_log(**kwargs):
+        new_audit_log = Auditlog(**kwargs)
+        new_audit_log.save()
