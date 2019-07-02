@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'favorites',
     'django_s3_storage',
-    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
