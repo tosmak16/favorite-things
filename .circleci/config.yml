@@ -43,8 +43,21 @@ jobs:
           path: test-results
           destination: tr1
 
+  deploy:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: deploy app
+          command: |
+            cd server
+            pipenv run deploy-dev-server
+
 workflows:
   version: 2
   test_and_deploy:
     jobs:
       - server-test
+      - deploy:
+          requires:
+            - server-test
