@@ -8,16 +8,18 @@ pylint = "*"
 autopep8 = "*"
 
 [packages]
-django = "*"
 djangorestframework = "*"
 python-dotenv = "*"
 psycopg2-binary = "*"
 coverage = "*"
 coveralls = "*"
 coreapi = "*"
+django = "==2.2.3"
+zappa = "*"
+django-s3-storage = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
 
 [scripts]
 dev-server = "python manage.py runserver --settings=config.settings.dev"
@@ -25,3 +27,6 @@ tests = "python manage.py test --settings=config.settings.test"
 tests-coverage = "coverage run manage.py test --settings=config.settings.test"
 report = "coverage report"
 coveralls = "coveralls"
+migrate = "python manage.py migrate --settings=config.settings.dev"
+upload-static = "python manage.py collectstatic --noinput --settings=config.settings.dev"
+deploy-dev-server = "zappa update dev"

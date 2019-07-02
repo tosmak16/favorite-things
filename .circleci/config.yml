@@ -4,7 +4,7 @@ jobs:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.7
+      - image: circleci/python:3.6
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
 
@@ -18,7 +18,7 @@ jobs:
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
       - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
@@ -43,8 +43,42 @@ jobs:
           path: test-results
           destination: tr1
 
+  deploy:
+    docker:
+      - image: circleci/python:3.6
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+
+    working_directory: ~/favorite-things
+
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - restore_cache:
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+          command: |
+            sudo pip install pipenv
+            pipenv install
+      - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"
+      - run:
+          name: deploy app
+          command: |
+            cd server
+            pipenv run deploy-dev-server
+
 workflows:
   version: 2
   test_and_deploy:
     jobs:
       - server-test
+      - deploy:
+          requires:
+            - server-test
