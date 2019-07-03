@@ -43,7 +43,19 @@ jobs:
           path: test-results
           destination: tr1
 
-  deploy:
+  build-client:
+    docker:
+      - image: circleci/node:8.12.0
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: deploy
+          command: sh ./.circleci/deploy.sh
+
+  deploy-server:
     docker:
       - image: circleci/python:3.6
         environment: # environment variables for primary container
@@ -79,6 +91,9 @@ workflows:
   test_and_deploy:
     jobs:
       - server-test
-      - deploy:
+      - build-client:
+          requires:
+            - server-test
+      - deploy-server:
           requires:
             - server-test
