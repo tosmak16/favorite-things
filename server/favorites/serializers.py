@@ -1,12 +1,15 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from rest_framework.validators import UniqueValidator
+
 from .models import Favorite, Category, Auditlog
 
 
 class UserSerializer(serializers.ModelSerializer):
 
-    email = serializers.EmailField(required=True)
+    email = serializers.EmailField(required=True,  validators=[
+                                   UniqueValidator(queryset=User.objects.all())])
 
     class Meta:
         model = User
