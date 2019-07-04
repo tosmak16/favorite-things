@@ -94,6 +94,12 @@ workflows:
       - build-client:
           requires:
             - server-test
+          filters:
+            branches:
+              only: develop
       - deploy-server:
           requires:
             - server-test
+          filters:
+            branches:
+              only: develop

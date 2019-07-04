@@ -7,6 +7,7 @@ verify_ssl = true
 pylint = "*"
 autopep8 = "*"
 
+
 [packages]
 djangorestframework = "*"
 python-dotenv = "*"
@@ -17,16 +18,17 @@ coreapi = "*"
 django = "==2.2.3"
 zappa = "*"
 django-s3-storage = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.6"
 
 [scripts]
-dev-server = "python manage.py runserver --settings=config.settings.dev"
+dev-server = "python manage.py runserver --settings=config.settings.base"
 tests = "python manage.py test --settings=config.settings.test"
 tests-coverage = "coverage run manage.py test --settings=config.settings.test"
 report = "coverage report"
 coveralls = "coveralls"
-migrate = "python manage.py migrate --settings=config.settings.dev"
-upload-static = "python manage.py collectstatic --noinput --settings=config.settings.dev"
+migrate = "python manage.py migrate --settings=config.settings.base"
+upload-static = "python manage.py collectstatic --noinput --settings=config.settings.base"
 deploy-dev-server = "zappa update dev"

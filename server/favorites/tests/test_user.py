@@ -23,9 +23,8 @@ class UserRegisterTests(TestBase):
         user_data = self.user_test_data.copy()
 
         response = self.client.post(self.url, user_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        user_data.pop('password')
-        self.assertEqual(response.data, user_data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['message'], 'Login successful.')
 
     def test_register_user_failed_no_email(self):
         """
@@ -104,7 +103,6 @@ class UserLoginTests(TestBase):
 
         response = self.client.post(self.url, user_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        user_data.pop('password')
         self.assertEqual(response.data['message'], 'Login successful.')
 
     def test_login_user_failed_invalid_data(self):

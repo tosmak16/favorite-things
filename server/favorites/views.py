@@ -9,8 +9,7 @@ from datetime import datetime
 from .serializers import (UserSerializer, FavoriteSerializer, LoginSerializer,
                           AuditlogSerializer, CategorySerializer, FavoriteDetailsSerializer)
 from .models import Favorite, Category, Auditlog
-from .helpers import (handle_decrement_rank, handle_increment_rank,
-                      handle_left_shift_rank, handle_right_shift_rank)
+from .helpers import (handle_decrement_rank, handle_increment_rank,handle_left_shift_rank, handle_right_shift_rank, login_handler)
 
 
 class UserCreateView(generics.CreateAPIView):
@@ -20,6 +19,21 @@ class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
     authentication_classes = ()
     permission_classes = ()
+
+    def post(self, request,):
+        user_data = request.data
+
+        serialized_user_data = UserSerializer(data=user_data)
+        if not serialized_user_data.is_valid():
+            return Response(data=serialized_user_data.errors, status=status.HTTP_400_BAD_REQUEST)
+        serialized_user_data.save()
+        validated_data = serialized_user_data.validated_data
+        username = validated_data.get("username")
+        password = validated_data.get("password")
+
+        return login_handler(username, password)
+
+
 
 
 class LoginView(generics.CreateAPIView):
@@ -32,11 +46,8 @@ class LoginView(generics.CreateAPIView):
     def post(self, request,):
         username = request.data.get("username")
         password = request.data.get("password")
-        user = authenticate(username=username, password=password)
-        if user:
-            return Response({"token": user.auth_token.key, "message": "Login successful."})
-        else:
-            return Response({"error": "Wrong Credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+
+        return login_handler(username, password)
 
 
 class FavoriteViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.CreateModelMixin):
