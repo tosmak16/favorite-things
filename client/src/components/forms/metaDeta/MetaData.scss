@@ -1,0 +1,13 @@
+.form-group {
+    display: grid;
+    grid-template-columns: auto auto 200px auto;
+    grid-gap: 5px;
+
+    @media (max-width: 500px) {
+        grid-template-columns: auto;
+    }
+}
+
+button {
+    margin-top: 20px;
+}

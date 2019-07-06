@@ -43,12 +43,17 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
 
+    favorites__count = serializers.IntegerField(required=False)
+
     class Meta:
         model = Category
         fields = '__all__'
 
+        extra_kwargs = {'favorites__count': {'read_only': True}}
+
 
 class FavoriteDetailsSerializer(serializers.ModelSerializer):
+
 
     class Meta:
         model = Favorite

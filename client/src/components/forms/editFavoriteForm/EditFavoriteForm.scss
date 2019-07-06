@@ -1,0 +1,80 @@
+.input {
+    border-radius: 0;
+    margin-top: 5px;
+
+    &:focus,
+    &:active,
+    .select,
+    select.is-active {
+        box-shadow: 0 0 0 0.125em #e9f7ee;
+        border-color: transparent;
+    }
+}
+
+.container {
+    display: grid;
+    flex-direction: column;
+    grid-row-gap: 5px;
+    max-width: 600px;
+    background-color: white;
+    padding: 10px 20px;
+
+    @media (max-width: 500px) {
+        overflow-y: scroll;
+        margin-top: 80%;
+        height: 50%;
+    }
+}
+
+.btn-primary {
+    background-color: #41b883;
+    color: white;
+    border-color: transparent;
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: #41b883;
+        border-color: transparent;
+        background-color: white;
+        border: 1.3px solid #41b883;
+        border-color: #41b883;
+        outline: #41b883;
+        box-shadow: none;
+
+    }
+
+    &:focus:not(:active) {
+        box-shadow: none;
+
+    }
+}
+
+img {
+    justify-self: center;
+}
+
+
+
+
+select {
+    &:focus, &:active {
+        outline: none !important;
+        border-color: transparent !important;
+    }
+}
+
+.textarea:focus, .textarea:active {
+    border-color: transparent !important;
+    outline: none !important;
+    border-color: transparent !important;
+}
+
+
+
+.button-group {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+}

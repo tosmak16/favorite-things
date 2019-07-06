@@ -39,7 +39,7 @@ def login_handler(username, password):
         if user:
             return Response(
                 {
-                    "token": user.auth_token.key, "message": "Login successful."},
-                status=status.HTTP_200_OK)
+                    "token": user.auth_token.key, "userId": user.id, "message": "Login successful."},
+                    status=status.HTTP_200_OK)
         else:
             return Response({"error": "Wrong Credentials."}, status=status.HTTP_401_UNAUTHORIZED)
