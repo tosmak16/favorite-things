@@ -1,0 +1,52 @@
+.input {
+    border-radius: 0;
+    margin-top: 5px;
+
+    &:focus,
+    &:active,
+    .select,
+    select.is-active {
+        box-shadow: 0 0 0 0.125em #e9f7ee;
+        border-color: transparent;
+    }
+}
+
+.container {
+    display: grid;
+    flex-direction: column;
+    grid-row-gap: 20px;
+    max-width: 400px;
+    background-color: white;
+    height: 300px;
+    width: 300px;
+    padding: 0 20px;
+}
+
+.btn-primary {
+    background-color: #41b883;
+    color: white;
+    border-color: transparent;
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: #41b883;
+        border-color: transparent;
+        background-color: white;
+        border: 1.3px solid #41b883;
+        border-color: #41b883;
+        outline: #41b883;
+        box-shadow: none;
+
+    }
+
+    &:focus:not(:active) {
+        box-shadow: none;
+
+    }
+}
+
+img {
+    justify-self: center;
+}

@@ -15,7 +15,7 @@ class AbstractBaseModel(models.Model):
     """
 
     created_date = models.DateTimeField(default=timezone.now)
-    modified_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(auto_now=True)
 
     class Meta:
 

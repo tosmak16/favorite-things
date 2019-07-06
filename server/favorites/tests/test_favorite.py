@@ -18,9 +18,9 @@ class FavoriteTests(TestBase):
 
         response = self.client.get(self.url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data[0]['title'],
+        self.assertEqual(response.data['results'][0]['title'],
                          self.favorite_data['title'])
-        self.assertEqual(response.data[0]['ranking'],
+        self.assertEqual(response.data['results'][0]['ranking'],
                          self.favorite_data['ranking'])
 
     def test_create_favorite_success(self):
