@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate
-from rest_framework import generics, status, viewsets, mixins
+from rest_framework import generics, status, viewsets, mixins, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from datetime import datetime
+from django.db.models import Count
 
 
 from .serializers import (UserSerializer, FavoriteSerializer, LoginSerializer,
@@ -53,6 +54,10 @@ class LoginView(generics.CreateAPIView):
 class FavoriteViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.CreateModelMixin):
     """ It handles favorite operations like create and list of favorites. """
     serializer_class = FavoriteSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('ranking', 'category', 'created_date', 'modified_date')
+    ordering = ('-modified_date',)
+
 
     def get_queryset(self):
         queryset = Favorite.objects.filter(
@@ -117,7 +122,8 @@ class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.Cre
     """It handles category view operations like list and create categories
     """
     serializer_class = CategorySerializer
-    queryset = Category.objects.all()
+    queryset = Category.objects.annotate(Count('favorites', distinct=True))
+    pagination_class = None
 
     def create(self, request):
 
