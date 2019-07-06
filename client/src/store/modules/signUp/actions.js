@@ -14,6 +14,8 @@ const actions = {
       .post(`${process.env.VUE_APP_API_BASE_URL}users/`, formData)
       .then(response => {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("owner", response.data.userId);
+
         commit(SIGNUP_SUCCESS, response.status === 200);
       })
       .catch(error => commit(SIGNUP_FAIL, error.response.data));

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import SignUp from "./views/signUp/SignUp.vue";
+
+import Home from "./views/home/Home.vue";
 
 Vue.use(Router);
 
@@ -10,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "index",
-      component: SignUp
+      name: "Home",
+      component: Home
     },
     {
       path: "/login",
