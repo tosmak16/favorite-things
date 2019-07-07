@@ -1,0 +1,10 @@
+{
+    "firstName": "Oluwatosin",
+    "lastName": "Akinola",
+    "email": "tosmak16@gmail.com",
+    "currentWorkTitle": "Software Engineer",
+    "location": "Lagos, Nigeria",
+    "address": "1 Ayodele street Ladi Lak, Lagos",
+    "hobbies": ["Playing guitar", "Reading Creative thinking books", "Playing games"],
+    "summary": "A self-motivated and Creative Software Engineer who can think “out of the box”, Strong in design with analytical problem solving skills. Expert in developing web applications using React/Redux/Node, Vue/Vuex, Python/Django, Python/flask, ASP.NET core, HTML, CSS and SCSS."
+}
