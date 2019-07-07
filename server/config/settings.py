@@ -15,7 +15,7 @@ load_dotenv()
 SECRET_KEY = getenv('APP_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv('DEBUG', False)
+DEBUG = False
 
 ALLOWED_HOSTS = [
     getenv('HOST_URL'),
