@@ -33,17 +33,15 @@ const actions = {
     commit(CLEAR_SERVER_ERROR, "");
   },
 
-  async getFavorites({ commit }, { token, page, ordering }) {
+  async getFavorites({ commit }, { token, page, ordering, category }) {
+    const path = category
+      ? `favorites/?category=${category}&page=${page}&ordering=${ordering}`
+      : `favorites/?page=${page}&ordering=${ordering}`;
     commit(GET_FAVORITES_START, true);
     await axios
-      .get(
-        `${
-          process.env.VUE_APP_API_BASE_URL
-        }favorites/?page=${page}&ordering=${ordering}`,
-        {
-          headers: { Authorization: `Token ${token}` }
-        }
-      )
+      .get(`${process.env.VUE_APP_API_BASE_URL}${path}`, {
+        headers: { Authorization: `Token ${token}` }
+      })
       .then(response => {
         commit(GET_FAVORITES_SUCCESS, response.data);
       })

@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from datetime import datetime
 from django.db.models import Count
-
+import django_filters.rest_framework
 
 from .serializers import (UserSerializer, FavoriteSerializer, LoginSerializer,
                           AuditlogSerializer, CategorySerializer, FavoriteDetailsSerializer)
@@ -54,9 +54,10 @@ class LoginView(generics.CreateAPIView):
 class FavoriteViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.CreateModelMixin):
     """ It handles favorite operations like create and list of favorites. """
     serializer_class = FavoriteSerializer
-    filter_backends = (filters.OrderingFilter,)
+    filter_backends = (filters.OrderingFilter, django_filters.rest_framework.DjangoFilterBackend,)
     ordering_fields = ('ranking', 'category', 'created_date', 'modified_date')
     ordering = ('-modified_date',)
+    filterset_fields = ('category',)
 
 
     def get_queryset(self):
