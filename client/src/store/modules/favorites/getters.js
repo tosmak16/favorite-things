@@ -7,7 +7,8 @@ const getters = {
   },
   isEditFavoriteSuccess: state => state.isSuccess,
   editFavoriteErrorMessage: state => state.errorMessage,
-  isDeleteFavoriteSuccess: state => state.isDeleteSuccess
+  isDeleteFavoriteSuccess: state => state.isDeleteSuccess,
+  isFavoritesLoading: state => state.isLoading
 };
 
 export default getters;

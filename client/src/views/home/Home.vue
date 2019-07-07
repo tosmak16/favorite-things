@@ -1,6 +1,9 @@
 <template>
   <div>
-    <FavoriteTable :on-click="showEditFavoriteModal" />
+    <div class="main-container">
+      <SelectMenu :category-list="categoryList" />
+      <FavoriteTable :on-click="showEditFavoriteModal" />
+    </div>
 
     <SpeedDial
       :on-add-category-icon-click="showAddCategoryModel"
@@ -49,6 +52,7 @@ import FavoriteForm from "../../components/forms/favoriteForm/FavoriteForm";
 import FavoriteTable from "../../components/table/FavoriteTable";
 import EditFavoriteForm from "../../components/forms/editFavoriteForm/EditFavoriteForm";
 import AuditLogTable from "../../components/table/AuditLogTable";
+import SelectMenu from "../../components/selectMenu/SelectMenu";
 
 export default {
   name: "Home",
@@ -77,7 +81,8 @@ export default {
     FavoriteForm,
     FavoriteTable,
     EditFavoriteForm,
-    AuditLogTable
+    AuditLogTable,
+    SelectMenu
   },
 
   methods: {
@@ -98,7 +103,12 @@ export default {
 
     getFavorites(page = 1, ordering = "-modified_date") {
       const token = localStorage.getItem("token");
-      this.$store.dispatch("getFavorites", { token, page, ordering });
+      this.$store.dispatch("getFavorites", {
+        token,
+        page,
+        ordering,
+        category: this.selectedCategory
+      });
     },
 
     logOut() {
@@ -135,6 +145,11 @@ export default {
       if (newValue === true && newValue !== oldValue) {
         this.getFavorites();
       }
+    },
+    selectedCategory(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.getFavorites();
+      }
     }
   },
 
@@ -146,7 +161,8 @@ export default {
       "favoriteList",
       "isEditFavoriteSuccess",
       "isDeleteFavoriteSuccess",
-      "isLoggedIn"
+      "isLoggedIn",
+      "selectedCategory"
     ]),
 
     token() {

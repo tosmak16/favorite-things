@@ -1,6 +1,6 @@
 <template>
   <md-speed-dial :class="bottomPosition">
-    <md-speed-dial-target>
+    <md-speed-dial-target class="speed-dial">
       <md-icon>add</md-icon>
     </md-speed-dial-target>
 

@@ -9,7 +9,8 @@ const state = {
   categoryData: [],
   isLoading: false,
   errorMessage: "",
-  isSuccess: false
+  isSuccess: false,
+  selectedCategory: null
 };
 
 export default {
