@@ -1,5 +1,15 @@
 <template>
   <div id="app">
+    <Loader
+      :is-loading="
+        isFavoritesLoading ||
+          isCategoryLoading ||
+          isAuditLogsLoading ||
+          isSignUpLoading ||
+          isLoginLoading
+      "
+    />
+
     <Navbar />
     <router-view />
   </div>
@@ -92,12 +102,29 @@ h2 {
 </style>
 
 <script>
+import { mapGetters } from "vuex";
+
 import Navbar from "./components/navbar/Navbar";
+import Loader from "./components/loader/Loader";
 
 export default {
   name: "App",
   components: {
-    Navbar
+    Navbar,
+    Loader
+  },
+  computed: {
+    ...mapGetters([
+      "isFavoritesLoading",
+      "isCategoryLoading",
+      "isAuditLogsLoading",
+      "isSignUpLoading",
+      "isLoginLoading"
+    ]),
+
+    token() {
+      return localStorage.getItem("token");
+    }
   }
 };
 </script>

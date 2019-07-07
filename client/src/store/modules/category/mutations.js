@@ -5,7 +5,9 @@ import {
   CLEAR_SERVER_ERROR,
   GET_CATEGORY_START,
   GET_CATEGORY_SUCCESS,
-  GET_CATEGORY_FAIL
+  GET_CATEGORY_FAIL,
+  ADD_SELECTED_CATEGORY,
+  CLEAR_SELECTED_CATEGORY
 } from "./types";
 
 const mutations = {
@@ -60,6 +62,18 @@ const mutations = {
       isLoading: false,
       isSuccess: false,
       errorMessage
+    });
+  },
+
+  [ADD_SELECTED_CATEGORY](state, selectedCategory) {
+    state = Object.assign(state, {
+      selectedCategory
+    });
+  },
+
+  [CLEAR_SELECTED_CATEGORY](state, selectedCategory) {
+    state = Object.assign(state, {
+      selectedCategory
     });
   }
 };

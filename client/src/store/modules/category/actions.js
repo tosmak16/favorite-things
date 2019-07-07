@@ -7,7 +7,9 @@ import {
   CLEAR_SERVER_ERROR,
   GET_CATEGORY_START,
   GET_CATEGORY_SUCCESS,
-  GET_CATEGORY_FAIL
+  GET_CATEGORY_FAIL,
+  ADD_SELECTED_CATEGORY,
+  CLEAR_SELECTED_CATEGORY
 } from "./types";
 
 const actions = {
@@ -41,6 +43,14 @@ const actions = {
         commit(GET_CATEGORY_SUCCESS, response.data);
       })
       .catch(error => commit(GET_CATEGORY_FAIL, error.response.data));
+  },
+
+  addSelectedCategory({ commit }, seletedCategory) {
+    commit(ADD_SELECTED_CATEGORY, seletedCategory);
+  },
+
+  clearSelectedCategory({ commit }) {
+    commit(CLEAR_SELECTED_CATEGORY, null);
   }
 };
 

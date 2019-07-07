@@ -16,9 +16,10 @@
       :default-sort-direction="defaultSortOrder"
       :default-sort="[sortField, sortOrder]"
       @sort="onSort"
-      v-if="categoryList.length && favoriteList"
+      v-if="categoryList.length"
       @click="onClick"
       focusable
+      isEmpty
     >
       <template slot-scope="props">
         <b-table-column field="original_title" label="Title" sortable>
@@ -61,6 +62,19 @@
           <Tags :tag-list="props.row.metadata" :remove-tag="() => {}" />
         </b-table-column>
       </template>
+
+      <template slot="empty">
+        <section class="section">
+          <div class="content has-text-grey has-text-centered">
+            <p>
+              <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
+            </p>
+            <p>
+              Nothing here. Click the icon below to add your favorite things
+            </p>
+          </div>
+        </section>
+      </template>
     </b-table>
   </section>
 </template>
@@ -101,14 +115,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["favoriteList", "categoryList"])
+    ...mapGetters(["favoriteList", "categoryList", "selectedCategory"])
   },
 
   watch: {},
   methods: {
     loadAsyncData(page = 1, ordering = "-modified_date") {
       const token = localStorage.getItem("token");
-      this.$store.dispatch("getFavorites", { token, page, ordering });
+      this.$store.dispatch("getFavorites", {
+        token,
+        page,
+        ordering,
+        category: this.selectedCategory
+      });
     },
     onPageChange(page) {
       this.page = page;

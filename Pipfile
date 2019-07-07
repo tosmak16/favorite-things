@@ -7,7 +7,6 @@ verify_ssl = true
 pylint = "*"
 autopep8 = "*"
 
-
 [packages]
 djangorestframework = "*"
 python-dotenv = "*"
@@ -19,6 +18,7 @@ django = "==2.2.3"
 zappa = "*"
 django-s3-storage = "*"
 django-cors-headers = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.6"
