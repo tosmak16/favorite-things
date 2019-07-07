@@ -157,6 +157,9 @@ class AuditLogView(generics.ListAPIView):
     """
 
     serializer_class = AuditlogSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('created_date',)
+    ordering = ('-created_date',)
 
     def get_queryset(self):
         queryset = Auditlog.objects.filter(owner_id=self.request.user)

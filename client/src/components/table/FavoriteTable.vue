@@ -84,7 +84,7 @@ import moment from "moment";
 import Tags from "../tags/Tags";
 
 export default {
-  name: "Table",
+  name: "FavoriteTable",
   components: { Tags },
   props: {
     onClick: Function
