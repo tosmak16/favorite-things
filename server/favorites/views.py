@@ -1,7 +1,5 @@
-from django.contrib.auth import authenticate
 from rest_framework import generics, status, viewsets, mixins, filters
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from datetime import datetime
 from django.db.models import Count
@@ -10,7 +8,8 @@ import django_filters.rest_framework
 from .serializers import (UserSerializer, FavoriteSerializer, LoginSerializer,
                           AuditlogSerializer, CategorySerializer, FavoriteDetailsSerializer)
 from .models import Favorite, Category, Auditlog
-from .helpers import (handle_decrement_rank, handle_increment_rank,handle_left_shift_rank, handle_right_shift_rank, login_handler)
+from .helpers import (handle_decrement_rank, handle_increment_rank, handle_left_shift_rank,
+                      handle_right_shift_rank, login_handler)
 
 
 class UserCreateView(generics.CreateAPIView):
@@ -35,8 +34,6 @@ class UserCreateView(generics.CreateAPIView):
         return login_handler(username, password)
 
 
-
-
 class LoginView(generics.CreateAPIView):
 
     """It has handles user authentication and returns token to authenticated user.
@@ -58,7 +55,6 @@ class FavoriteViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.Cre
     ordering_fields = ('ranking', 'category', 'created_date', 'modified_date')
     ordering = ('-modified_date',)
     filterset_fields = ('category',)
-
 
     def get_queryset(self):
         queryset = Favorite.objects.filter(
@@ -96,8 +92,7 @@ class FavoriteDetailsViewSet(
 
         if (instance.ranking != new_ranking or instance.ranking == new_ranking) and instance.category != new_category:
             handle_increment_rank(ranking=new_ranking, category=new_category)
-            handle_decrement_rank(ranking=instance.ranking,
-                                  category=instance.category)
+            handle_decrement_rank(ranking=instance.ranking, category=instance.category)
 
         elif new_ranking > instance.ranking and instance.category == new_category:
             handle_left_shift_rank(new_ranking, instance.ranking, new_category)

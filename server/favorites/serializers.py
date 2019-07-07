@@ -54,7 +54,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class FavoriteDetailsSerializer(serializers.ModelSerializer):
 
-
     class Meta:
         model = Favorite
         fields = '__all__'

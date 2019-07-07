@@ -6,4 +6,5 @@ class FavoritesConfig(AppConfig):
 
     def ready(self):
         # everytime server restarts
-        import favorites.signals
+
+        import favorites.signals  # noqa: F401

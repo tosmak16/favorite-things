@@ -1,6 +1,5 @@
 from django.urls import reverse
 from rest_framework import status
-from django.urls import reverse
 
 from .test_base import TestBase
 

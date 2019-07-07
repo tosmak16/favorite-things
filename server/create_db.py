@@ -2,9 +2,6 @@ import sys
 import logging
 import psycopg2
 
-
-from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
 from os import getenv
 
 
