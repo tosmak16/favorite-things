@@ -10,7 +10,7 @@ Because, Django signals is synchronous which cause some slight delay before a us
 
 - #### Data Classes
 
-One new in Python 3.7 is the data class. It is created using the new @dataclass decorator and using it we can safely create a call without __init__ method.
+One new feature in Python 3.7 is the data class. It is created using the new @dataclass decorator and using it we can safely create a class without __init__ method.
 An example of a use case is shown below.
 
 ```import asyncio
