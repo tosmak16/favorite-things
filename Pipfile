@@ -21,14 +21,14 @@ django-cors-headers = "*"
 django-filter = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
 
 [scripts]
-dev-server = "python manage.py runserver --settings=config.settings.base"
-tests = "python manage.py test --settings=config.settings.base"
-tests-coverage = "coverage run manage.py test --settings=config.settings.base"
+server = "python manage.py runserver"
+tests = "python manage.py test"
+tests-coverage = "coverage run manage.py test"
 report = "coverage report"
 coveralls = "coveralls"
-migrate = "python manage.py migrate --settings=config.settings.base"
-upload-static = "python manage.py collectstatic --noinput --settings=config.settings.base"
-deploy-dev-server = "zappa update dev"
+migrate = "python manage.py migrate"
+upload-static = "python manage.py collectstatic"
+deploy-server = "zappa update dev"

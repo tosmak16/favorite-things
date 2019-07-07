@@ -11,7 +11,8 @@ def save_and_update_object_receiver(sender, instance, created, **kwargs):
 
     action = 'created' if created else 'updated'
     action = 'deleted' if instance.is_deleted else action
-    activity = f'{instance.title} has been {action}'
+    title = instance.title if not instance.is_deleted else instance.title[:-27]
+    activity = f'{title} has been {action}'
     owner = instance.owner
     favorite = instance
 

@@ -34,12 +34,13 @@ def handle_left_shift_rank(new_ranking, current_ranking, category):
     Favorite.objects.filter(Q(ranking__lte=new_ranking) & Q(ranking__gt=current_ranking),
                             category=category, is_deleted=False).update(ranking=F('ranking')-1)
 
+
 def login_handler(username, password):
-        user = authenticate(username=username, password=password)
-        if user:
-            return Response(
-                {
-                    "token": user.auth_token.key, "userId": user.id, "message": "Login successful."},
-                    status=status.HTTP_200_OK)
-        else:
-            return Response({"error": "Wrong Credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+    user = authenticate(username=username, password=password)
+    if user:
+        return Response(
+            {
+                "token": user.auth_token.key, "userId": user.id, "message": "Login successful."},
+            status=status.HTTP_200_OK)
+    else:
+        return Response({"error": "Wrong Credentials."}, status=status.HTTP_401_UNAUTHORIZED)
