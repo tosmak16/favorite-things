@@ -49,7 +49,6 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  padding-top: 5rem;
   grid-gap: 2rem;
 
   @media (max-width: 1024px) {

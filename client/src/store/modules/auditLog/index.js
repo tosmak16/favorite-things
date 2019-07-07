@@ -3,14 +3,13 @@ import actions from "./actions";
 import getters from "./getters";
 
 const state = {
-  formData: {
-    username: "",
-    password: ""
+  auditLogData: {
+    count: 0,
+    results: []
   },
   isLoading: false,
   errorMessage: "",
-  isSuccess: false,
-  isLoggedIn: false
+  isSuccess: false
 };
 
 export default {

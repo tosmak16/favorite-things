@@ -25,6 +25,7 @@ export default {
 
   created() {
     const token = localStorage.getItem("token");
+
     if (token) {
       this.$router.push("/");
     }
@@ -32,7 +33,7 @@ export default {
 
   watch: {
     isLoggedInSuccess(newValue, oldValue) {
-      if (newValue === true && newValue !== oldValue) {
+      if (newValue === true || oldValue === true) {
         this.$router.push("/");
       }
     }
@@ -49,7 +50,6 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  padding-top: 5rem;
   grid-gap: 2rem;
 
   @media (max-width: 1024px) {

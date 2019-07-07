@@ -5,6 +5,9 @@
     </md-speed-dial-target>
 
     <md-speed-dial-content>
+      <md-button @click="onShowAuditLogsIconClick" class="md-icon-button">
+        <md-icon>folder</md-icon>
+      </md-button>
       <md-button @click="onAddCategoryIconClick" class="md-icon-button">
         <md-icon>category</md-icon>
       </md-button>
@@ -35,7 +38,8 @@ export default {
   name: "SpeedDial",
   props: {
     onAddFavoriteIconClick: Function,
-    onAddCategoryIconClick: Function
+    onAddCategoryIconClick: Function,
+    onShowAuditLogsIconClick: Function
   },
   data: () => ({
     bottomPosition: "md-bottom-left"

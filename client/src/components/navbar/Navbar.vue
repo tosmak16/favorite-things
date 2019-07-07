@@ -8,9 +8,11 @@
       <a
         role="button"
         class="navbar-burger burger"
+        v-bind:class="{ 'is-active': isActive }"
         aria-label="menu"
         aria-expanded="false"
         data-target="navbarBasicExample"
+        @click="toggleNav"
       >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -18,16 +20,35 @@
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div
+      id="navbarBasicExample"
+      class="navbar-menu"
+      v-bind:class="{ 'is-activee': isActive }"
+    >
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <router-link to="/sign-up" class="button btn-primary">
-              <strong>Sign Up</strong>
-            </router-link>
-            <router-link to="/login" class="button is-success is-outlined"
-              >Login</router-link
+            <router-link
+              v-if="!isLoggedIn"
+              to="/sign-up"
+              class="button btn-primary"
             >
+              <i class="fas fa-user-plus"></i>
+            </router-link>
+            <router-link
+              v-if="!isLoggedIn"
+              to="/login"
+              class="button is-success is-outlined"
+              ><i class="fas fa-sign-in-alt"></i
+            ></router-link>
+            <button
+              v-if="isLoggedIn"
+              type="button"
+              class="button is-success is-outlined"
+              @click="logOut"
+            >
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -38,6 +59,13 @@
 <style lang="scss" scoped>
 nav {
   border-bottom: 1px solid #41b883;
+}
+
+.is-activee {
+  @media (max-width: 1024px) {
+    display: grid;
+    justify-content: center;
+  }
 }
 
 .navbar-burger {
@@ -63,7 +91,28 @@ nav {
 </style>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  data() {
+    return {
+      isActive: false
+    };
+  },
+  methods: {
+    logOut() {
+      localStorage.removeItem("token");
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
+    },
+    toggleNav() {
+      this.isActive = !this.isActive;
+    }
+  },
+
+  computed: {
+    ...mapGetters(["isLoggedIn"])
+  }
 };
 </script>

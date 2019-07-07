@@ -23,6 +23,11 @@ export default new Router({
       path: "/sign-up",
       name: "SignUp",
       component: () => import("./views/signUp/SignUp.vue")
+    },
+
+    {
+      path: "/*",
+      redirect: "/"
     }
   ]
 });
