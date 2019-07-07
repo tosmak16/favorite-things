@@ -1,9 +1,9 @@
 {
   "dev": {
     "aws_region": "us-west-2",
-    "django_settings": "config.settings.base",
+    "django_settings": "config.settings",
     "project_name": "server",
-    "runtime": "python3.6",
+    "runtime": "python3.7",
     "s3_bucket": "zappa-s41s4fgnz",
     "certificate_arn": "arn:aws:acm:us-east-1:336917017802:certificate/40cf554a-9ed7-4382-93c5-11d74c024ec4",
     "domain": "favorite-things-api.tosmak.me"
