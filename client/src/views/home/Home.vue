@@ -1,11 +1,18 @@
 <template>
   <div>
-    <Table :on-click="showEditFavoriteModal" />
+    <FavoriteTable :on-click="showEditFavoriteModal" />
 
     <SpeedDial
       :on-add-category-icon-click="showAddCategoryModel"
       :on-add-favorite-icon-click="showAddFavoriteModal"
+      :on-show-audit-logs-icon-click="showAuditLogsModal"
     />
+
+    <section>
+      <b-modal :active.sync="isAuditLogModalActive">
+        <AuditLogTable />
+      </b-modal>
+    </section>
 
     <section>
       <b-modal :active.sync="isCategoryModalActive" has-modal-card>
@@ -39,8 +46,9 @@ import { mapGetters } from "vuex";
 import SpeedDial from "../../components/speedDial/SpeedDial";
 import AddCategoryForm from "../../components/forms/addCategoryForm/AddCategoryForm";
 import FavoriteForm from "../../components/forms/favoriteForm/FavoriteForm";
-import Table from "../../components/table/Table";
+import FavoriteTable from "../../components/table/FavoriteTable";
 import EditFavoriteForm from "../../components/forms/editFavoriteForm/EditFavoriteForm";
+import AuditLogTable from "../../components/table/AuditLogTable";
 
 export default {
   name: "Home",
@@ -48,6 +56,7 @@ export default {
     isCategoryModalActive: false,
     isFavoriteModalActive: false,
     isEditModalActive: false,
+    isAuditLogModalActive: false,
     favoriteId: null
   }),
 
@@ -56,14 +65,19 @@ export default {
     if (token && this.categoryList.length === 0) {
       this.$store.dispatch("getCategories", token);
     }
+
+    if (!this.isLoggedIn) {
+      this.logOut();
+    }
   },
 
   components: {
     SpeedDial,
     AddCategoryForm,
     FavoriteForm,
-    Table,
-    EditFavoriteForm
+    FavoriteTable,
+    EditFavoriteForm,
+    AuditLogTable
   },
 
   methods: {
@@ -72,6 +86,9 @@ export default {
     },
     showAddFavoriteModal() {
       this.isFavoriteModalActive = true;
+    },
+    showAuditLogsModal() {
+      this.isAuditLogModalActive = true;
     },
 
     showEditFavoriteModal(selectedFavorite) {
@@ -82,6 +99,11 @@ export default {
     getFavorites(page = 1, ordering = "-modified_date") {
       const token = localStorage.getItem("token");
       this.$store.dispatch("getFavorites", { token, page, ordering });
+    },
+
+    logOut() {
+      localStorage.removeItem("token");
+      this.$router.push("/login");
     }
   },
 
@@ -123,8 +145,13 @@ export default {
       "isAddFavoriteSuccess",
       "favoriteList",
       "isEditFavoriteSuccess",
-      "isDeleteFavoriteSuccess"
-    ])
+      "isDeleteFavoriteSuccess",
+      "isLoggedIn"
+    ]),
+
+    token() {
+      return localStorage.getItem("token");
+    }
   }
 };
 </script>

@@ -4,7 +4,8 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  CLEAR_SERVER_ERROR
+  CLEAR_SERVER_ERROR,
+  LOG_OUT
 } from "./types";
 
 const actions = {
@@ -21,6 +22,9 @@ const actions = {
       .catch(error => commit(LOGIN_FAIL, error.response.data));
   },
 
+  logout({ commit }) {
+    commit(LOG_OUT, false);
+  },
   clearServerError({ commit }) {
     commit(CLEAR_SERVER_ERROR, "");
   }

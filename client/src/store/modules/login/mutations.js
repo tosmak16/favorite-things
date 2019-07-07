@@ -2,7 +2,8 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  CLEAR_SERVER_ERROR
+  CLEAR_SERVER_ERROR,
+  LOG_OUT
 } from "./types";
 
 const mutations = {
@@ -17,7 +18,8 @@ const mutations = {
   [LOGIN_SUCCESS](state, isSuccess) {
     state = Object.assign(state, {
       isLoading: false,
-      isSuccess
+      isSuccess,
+      isLoggedIn: true
     });
   },
 
@@ -32,6 +34,13 @@ const mutations = {
   [CLEAR_SERVER_ERROR](state, errorMessage) {
     state = Object.assign(state, {
       errorMessage
+    });
+  },
+
+  [LOG_OUT](state, isLoggedIn) {
+    state = Object.assign(state, {
+      isLoggedIn,
+      isSuccess: false
     });
   }
 };
