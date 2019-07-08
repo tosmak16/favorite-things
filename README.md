@@ -71,7 +71,7 @@ The deployment process is automated as shown in yml file in the .circle CI file.
 
 
 ## Api-docs
-Check out the API docs at [Favorite-things-API-DOCS](https://favorite-things-api.tosmak.me/api/docs/)
+Check out the API docs at [Favorite-things-API-DOCS](https://favorite-things-api.tosmak.me/docs/)
 
 ## Technology
 **Favorite-Things** makes use of a host of modern technologies. The core ones are:

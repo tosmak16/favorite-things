@@ -1,8 +1,8 @@
 <template>
   <section>
-    <b> Filter </b>
+    <b class="filter"> Filter </b>
     <b-field>
-      <b-select multiple size="8" v-model="selectedOptions">
+      <b-select size="8" multiple v-model="selectedOptions">
         <option
           @click="filterByCategory"
           v-for="item in categoryList"
@@ -24,10 +24,17 @@ section {
   justify-content: start;
   grid-gap: 10px;
   grid-template-rows: repeat(3, min-content);
+  box-shadow: 0px 1px 12px #c1bfbf;
+  height: 251px;
+  padding: 4px;
+  width: 100%;
+}
+.filter {
+  width: 100%;
 }
 
 button {
-  width: 89.5px;
+  width: 100%;
 }
 </style>
 

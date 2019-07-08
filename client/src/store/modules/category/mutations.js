@@ -16,14 +16,16 @@ const mutations = {
       formData,
       isLoading: true,
       errorMessage: "",
-      isSuccess: false
+      isSuccess: false,
+      isAddCategorySuccess: false
     });
   },
 
   [ADD_CATEGORY_SUCCESS](state, isSuccess) {
     state = Object.assign(state, {
       isLoading: false,
-      isSuccess
+      isSuccess,
+      isAddCategorySuccess: true
     });
   },
 
@@ -31,7 +33,8 @@ const mutations = {
     state = Object.assign(state, {
       isLoading: false,
       isSuccess: false,
-      errorMessage
+      errorMessage,
+      isAddCategorySuccess: false
     });
   },
 

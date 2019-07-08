@@ -6,7 +6,7 @@
     display: grid;
     padding: 2rem;
 
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: auto 1fr;
     grid-gap: 20px;
 
     @media (max-width: 800px) {
