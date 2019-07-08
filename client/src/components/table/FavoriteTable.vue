@@ -1,6 +1,8 @@
 <template>
   <section>
     <b-table
+      striped
+      hoverable
       :data="favoriteList.results"
       :loading="loading"
       paginated
@@ -20,9 +22,10 @@
       @click="onClick"
       focusable
       isEmpty
+      class="table"
     >
       <template slot-scope="props">
-        <b-table-column field="original_title" label="Title" sortable>
+        <b-table-column field="original_title" label="Title">
           {{ props.row.title }}
         </b-table-column>
 
@@ -54,7 +57,7 @@
           {{ new Date(props.row.modified_date) | moment }}
         </b-table-column>
 
-        <b-table-column label="Description">
+        <b-table-column class="description" label="Description">
           {{ props.row.description || "......" }}
         </b-table-column>
 
@@ -82,12 +85,21 @@
 <style lang="scss" scoped>
 td {
   text-transform: capitalize;
-  height: 80px;
+  height: 100px;
 
   @media (max-width: 500px) {
     min-height: 80px;
     height: 100%;
   }
+}
+
+.table {
+  box-shadow: 0px 1px 12px #c1bfbf;
+  padding: 10px;
+}
+
+.description {
+  width: min-content;
 }
 </style>
 

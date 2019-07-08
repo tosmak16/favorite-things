@@ -59,6 +59,7 @@
 <style lang="scss" scoped>
 nav {
   border-bottom: 1px solid #41b883;
+  box-shadow: 00px 0px 10px #41b883
 }
 
 .is-activee {

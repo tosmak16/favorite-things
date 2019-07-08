@@ -65,10 +65,7 @@ export default {
   }),
 
   created() {
-    const token = localStorage.getItem("token");
-    if (token && this.categoryList.length === 0) {
-      this.$store.dispatch("getCategories", token);
-    }
+    this.getCategories();
 
     if (!this.isLoggedIn) {
       this.logOut();
@@ -114,6 +111,13 @@ export default {
     logOut() {
       localStorage.removeItem("token");
       this.$router.push("/login");
+    },
+
+    getCategories() {
+      const token = localStorage.getItem("token");
+      if (token) {
+        this.$store.dispatch("getCategories", token);
+      }
     }
   },
 
@@ -121,14 +125,14 @@ export default {
     isAddCategorySuccess(newValue, oldValue) {
       if (newValue === true && newValue !== oldValue) {
         this.isCategoryModalActive = false;
+        this.getCategories();
       }
     },
 
     isAddFavoriteSuccess(newValue, oldValue) {
       if (newValue === true && newValue !== oldValue) {
-        this.getFavorites();
-
         this.isFavoriteModalActive = false;
+        this.getFavorites();
       }
     },
     isEditFavoriteSuccess(newValue, oldValue) {
