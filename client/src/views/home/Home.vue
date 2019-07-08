@@ -133,6 +133,7 @@ export default {
       if (newValue === true && newValue !== oldValue) {
         this.isFavoriteModalActive = false;
         this.getFavorites();
+        this.getCategories();
       }
     },
     isEditFavoriteSuccess(newValue, oldValue) {
