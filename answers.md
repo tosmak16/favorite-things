@@ -4,7 +4,7 @@
 #### What would you add to your solution if you had more time?
 
 If I had more time on the coding challenge, I would add RabbitMQ in place of Django Signals for auto updating AuditLog table.
-Because, Django signals is synchronous which cause some slight delay before a user get a response when changes are made on Favorites Table.  
+Because, Django signals is synchronous which cause some slight delay before a user get a response when changes are made on Favorites Table. For the client side (Vue JS) I would integrate D3 JS for better visualization and tacking of favorite things.
 
 #### What was the most useful feature that was added to the latest version of your chosen language? 
 
