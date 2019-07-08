@@ -10,7 +10,8 @@ const state = {
   isLoading: false,
   errorMessage: "",
   isSuccess: false,
-  selectedCategory: null
+  selectedCategory: null,
+  isAddCategorySuccess: false
 };
 
 export default {

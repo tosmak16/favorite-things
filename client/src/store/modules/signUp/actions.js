@@ -7,6 +7,8 @@ import {
   CLEAR_SERVER_ERROR
 } from "./types";
 
+import { LOGIN_SUCCESS } from "../login/types";
+
 const actions = {
   async signUp({ commit }, formData) {
     commit(SIGNUP_START, formData);
@@ -17,6 +19,7 @@ const actions = {
         localStorage.setItem("owner", response.data.userId);
 
         commit(SIGNUP_SUCCESS, response.status === 200);
+        commit(LOGIN_SUCCESS, response.status === 200);
       })
       .catch(error => commit(SIGNUP_FAIL, error.response.data));
   },

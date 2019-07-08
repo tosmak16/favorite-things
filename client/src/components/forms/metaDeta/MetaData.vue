@@ -63,9 +63,9 @@
       <b-datepicker
         placeholder="Type or select a date..."
         icon="calendar-today"
-        editable
         v-model="date"
         name="value"
+        position="is-top-left"
       >
       </b-datepicker>
       <span class="error-label">{{ errors.first("value") }}</span>
