@@ -1,4 +1,5 @@
 import asyncio
+from dataclasses import dataclass
 
 @dataclass
 class BackgroundTaskWorker:
