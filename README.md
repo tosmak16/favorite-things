@@ -83,6 +83,7 @@ Check out the API docs at [Favorite-things-API-DOCS](https://favorite-things-api
 - [Vuex](https://vuex.vuejs.org/)
 - [Postgres](https://www.postgresql.org/)
 - [Zappa](https://www.zappa.io/)
+- [Docker](https://www.docker.com/)
 
 ## Architecture
 It's a Monolith Architecture. Below is the application backend Database Design and Architecture
