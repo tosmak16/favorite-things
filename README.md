@@ -15,7 +15,7 @@ This project is an application that allows users to track their favorite things.
 - [Api-docs](#Api-docs)
 - [Technologies](#technology)
 - [Architecture](#Architecture)
-- [Installation](#installation)
+- [Application setup](#App-setup)
 - [Testing](#testing)
 - [Contribution](#contribution)
 - [Frequently Asked Questions](#faqs)
@@ -89,21 +89,31 @@ It's a Monolith Architecture. Below is the application backend Database Design a
 
 ![](favERD.png)
 
+## App-setup
 
-## Server side setup
+### Server side setup
 
 - Clone the repository
-- Change into the directory `$ cd /favorite-things/server`
-- Install all required dependencies with `$pipenv install`
-- Create a `.env` file in your root directory as described in `.env.sample` file
-- Start the app with `pipenv run server`
+- Change into the directory `$ cd /favorite-things/server`.
+- Install all required dependencies with `$pipenv install`.
+- Create a `.env` file in server directory as described in `.env.sample` file.
+- Start the app with `pipenv run server`.
 
-## Client side setup
+### Client side setup
 
-- Change into the directory `$ cd /favorite-things/client`
-- Install all required dependencies with `$npm install`
-- Create a `.env` file in your root directory as described in `.env.production` file
-- Start the app with `npm run serve`
+- Change into the directory `$ cd /favorite-things/client`.
+- Install all required dependencies with `$npm install`.
+- Create a `.env` file in client directory as described in `.env.production` file.
+- Start the app with `npm run serve`.
+
+### Docker setup
+
+- Ensure you have docker installed
+- Create a `.env` file in server directory as described in `.env.sample` file.
+- Create a `.env` file in client directory as described in `.env.production` file.
+- Run `$docker-compose build` to build the application,
+- Run `docker-compose up` to run the application.
+- You can access the server and client on http://127.0.0.1:8000/ and http://127.0.0.1:8080/login, respectively.
 
 ## Testing
 
