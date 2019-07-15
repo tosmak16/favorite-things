@@ -1,5 +1,5 @@
 #### How long did you spend on the coding test below?
- I spent 64 hours on the coding test. 8hours daily for 8 days
+ I spent 72 hours on the coding test. 8hours daily for 9 days
 
 #### What would you add to your solution if you had more time?
 
