@@ -20,12 +20,13 @@ zappa = "*"
 django-s3-storage = "*"
 django-cors-headers = "*"
 django-filter = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
 
 [scripts]
-server = "python manage.py runserver"
+server = "gunicorn config.wsgi --bind 0.0.0.0:8000"
 tests = "python manage.py test"
 tests-coverage = "coverage run manage.py test"
 report = "coverage report"
