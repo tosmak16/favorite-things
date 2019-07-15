@@ -24,6 +24,8 @@ jobs:
           key: deps9-{{ .Branch }}-{{ checksum "server/Pipfile.lock" }}
       - run:
           command: |
+            cd server
+            ls
             sudo pip install pipenv
             pipenv install
             pip install coverage
@@ -36,8 +38,9 @@ jobs:
       - run:
           command: |
             cd server
-            coverage run manage.py test
-            coverage report
+            ls
+            pipenv run tests-coverage
+            pipenv run report
             pipenv run coveralls
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
