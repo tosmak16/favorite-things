@@ -26,7 +26,7 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
-            pipenv install coverage
+            pip install coverage
       - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
           key: deps9-{{ .Branch }}-{{ checksum "server/Pipfile.lock" }}
           paths:
@@ -36,8 +36,8 @@ jobs:
       - run:
           command: |
             cd server
-            pipenv run tests-coverage
-            pipenv run report
+            $HOME/.local/bin/coverage run manage.py test
+            $HOME/.local/bin/coverage report
             pipenv run coveralls
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
@@ -76,7 +76,6 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
-            pipenv install coverage
       - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
           key: deps9-{{ .Branch }}-{{ checksum "server/Pipfile.lock" }}
           paths:
