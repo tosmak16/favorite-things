@@ -1,4 +1,4 @@
-sh ./.circleci/install-aws.sh
+sh ./scripts/install-aws.sh
 cd client
 npm install
 npm run build

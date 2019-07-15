@@ -54,7 +54,7 @@ jobs:
           command: npm install
       - run:
           name: deploy
-          command: sh ./.circleci/deploy.sh
+          command: sh ./scripts/deploy.sh
 
   deploy-server:
     docker:
