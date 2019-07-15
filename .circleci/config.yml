@@ -26,6 +26,7 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
+            pipenv install coverage
       - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
           key: deps9-{{ .Branch }}-{{ checksum "server/Pipfile.lock" }}
           paths:
@@ -75,6 +76,7 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
+            pipenv install coverage
       - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
           key: deps9-{{ .Branch }}-{{ checksum "server/Pipfile.lock" }}
           paths:
