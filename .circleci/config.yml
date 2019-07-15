@@ -36,8 +36,8 @@ jobs:
       - run:
           command: |
             cd server
-            $HOME/.local/bin/coverage run manage.py test
-            $HOME/.local/bin/coverage report
+            coverage run manage.py test
+            coverage report
             pipenv run coveralls
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
