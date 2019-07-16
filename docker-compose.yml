@@ -26,6 +26,8 @@ services:
     build:
       context: .
       dockerfile: .docker/client/Dockerfile
+    volumes:
+      - ./client/src/:/usr/src/app/src
     command: "npm run serve"
     ports:
       - "8080:8080"
