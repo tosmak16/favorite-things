@@ -61,7 +61,7 @@
           {{ props.row.description || "......" }}
         </b-table-column>
 
-        <b-table-column width="300" field="metadata" label="Tags">
+        <b-table-column class="tags" width="300" field="metadata" label="Tags">
           <Tags :tag-list="props.row.metadata" :remove-tag="() => {}" />
         </b-table-column>
       </template>
@@ -86,6 +86,7 @@
 td {
   text-transform: capitalize;
   height: 100px;
+  width: min-content;
 
   @media (max-width: 500px) {
     min-height: 80px;

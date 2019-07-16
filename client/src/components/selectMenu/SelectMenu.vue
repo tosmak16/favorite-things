@@ -19,23 +19,7 @@
 </template>
 
 <style lang="scss" scoped>
-section {
-  display: grid;
-  justify-content: start;
-  grid-gap: 10px;
-  grid-template-rows: repeat(3, min-content);
-  box-shadow: 0px 1px 12px #c1bfbf;
-  height: 251px;
-  padding: 4px;
-  width: 100%;
-}
-.filter {
-  width: 100%;
-}
-
-button {
-  width: 100%;
-}
+@import "./SelectMenu.scss";
 </style>
 
 <script>

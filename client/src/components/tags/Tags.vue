@@ -26,14 +26,6 @@
 
 <style lang="scss" scoped>
 @import "./Tags.scss";
-
-.tag {
-  min-width: 85px;
-}
-
-.tag-small {
-  min-width: 60px;
-}
 </style>
 
 <script>
