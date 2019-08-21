@@ -38,7 +38,8 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorite
-        fields = '__all__'
+        fields = ('id', 'title', 'description', 'ranking', 'metadata', 'category',
+                  'owner', 'created_date', 'modified_date')
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -47,7 +48,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ('id', 'name', 'favorites__count', 'created_date', 'modified_date')
 
         extra_kwargs = {'favorites__count': {'read_only': True}}
 
@@ -56,7 +57,8 @@ class FavoriteDetailsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorite
-        fields = '__all__'
+        fields = ('id', 'title', 'description', 'ranking', 'metadata', 'category', 'owner', 'is_deleted',
+                  'created_date', 'modified_date')
         extra_kwargs = {'owner': {'read_only': True},
                         'is_deleted': {'read_only': True}}
 
@@ -65,4 +67,4 @@ class AuditlogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Auditlog
-        fields = '__all__'
+        fields = ('id', 'favorite', 'action', 'activity', 'owner', 'created_date', 'modified_date')
